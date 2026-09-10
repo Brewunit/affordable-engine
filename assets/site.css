@@ -49,6 +49,7 @@
 .shop-shot::before{top:8px;left:8px;border-right:0;border-bottom:0}
 .shop-shot::after{right:8px;bottom:8px;border-left:0;border-top:0}
 .shop-shot img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;pointer-events:none}
+.shop-shot img[src*="shop-08"]{object-position:center 18%}
 .shop-rail .shop-viewport{border-top:1px solid var(--line);border-bottom:1px solid var(--red);padding-block:12px}
 @media(max-width:640px){.shop-shot{flex-basis:min(22rem,86vw)}.shop-head{align-items:stretch}.shop-controls{width:100%}.shop-controls .btn{flex:1}}
 @media(prefers-reduced-motion:reduce){.shop-track{will-change:auto}}
