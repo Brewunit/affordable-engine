@@ -38,14 +38,20 @@
 .shop-rail{padding:var(--space) 0 0;border-top:1px solid var(--line);overflow:hidden;background:var(--black)}
 .shop-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:clamp(28px,4vw,48px)}
 .shop-head .quiet{max-width:52ch}
-.shop-controls{display:flex;gap:10px}
-.shop-viewport{overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:thin;cursor:grab;-webkit-overflow-scrolling:touch}
-.shop-viewport.is-dragging{cursor:grabbing;scroll-snap-type:none}
+.shop-controls{display:flex;align-items:center;gap:10px}
+.shop-readout{margin:0;font-size:13px;font-weight:700;letter-spacing:.16em;color:var(--red);min-width:5.5em}
+.shop-viewport{overflow:hidden;cursor:grab;touch-action:pan-y}
+.shop-viewport.is-dragging{cursor:grabbing}
 .shop-viewport:focus-visible{outline:3px solid var(--white);outline-offset:-3px}
-.shop-track{display:flex;gap:16px;width:max-content;padding-inline:var(--gutter);padding-bottom:12px}
-.shop-shot{margin:0;flex:0 0 min(28rem,78vw);scroll-snap-align:start}
+.shop-track{display:flex;gap:16px;width:max-content;padding-inline:var(--gutter);will-change:transform}
+.shop-shot{margin:0;flex:0 0 min(28rem,78vw);position:relative}
+.shop-shot::before,.shop-shot::after{content:'';position:absolute;width:16px;height:16px;border:2px solid var(--red);pointer-events:none;z-index:1}
+.shop-shot::before{top:8px;left:8px;border-right:0;border-bottom:0}
+.shop-shot::after{right:8px;bottom:8px;border-left:0;border-top:0}
 .shop-shot img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;pointer-events:none}
-@media(max-width:640px){.shop-shot{flex-basis:min(22rem,86vw)}.shop-head{align-items:stretch}.shop-controls .btn{flex:1}}
+.shop-rail .shop-viewport{border-top:1px solid var(--line);border-bottom:1px solid var(--red);padding-block:12px}
+@media(max-width:640px){.shop-shot{flex-basis:min(22rem,86vw)}.shop-head{align-items:stretch}.shop-controls{width:100%}.shop-controls .btn{flex:1}}
+@media(prefers-reduced-motion:reduce){.shop-track{will-change:auto}}
 .voices{padding:var(--space) 0;border-top:1px solid var(--line);overflow:hidden}
 .voices-head{margin-bottom:clamp(28px,4vw,48px)}
 .voices-head .quiet{max-width:52ch}
