@@ -36,18 +36,16 @@
 .family-photo img{width:100%;height:auto;aspect-ratio:6/5;object-fit:cover;object-position:center 18%}
 .family-split .story-copy{padding-top:0}
 .shop-rail{padding:var(--space) 0 0;border-top:1px solid var(--line);overflow:hidden;background:var(--black)}
-.shop-viewport{overflow:hidden}
-.shop-track{display:grid;gap:16px;padding-inline:var(--gutter);grid-template-columns:repeat(2,minmax(0,1fr))}
-.shop-shot{margin:0}
-.shop-shot img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover}
-.shop-track.is-rolling{display:flex;align-items:stretch;gap:16px;width:max-content;padding-inline:0 16px;grid-template-columns:none;animation:voices-roll 95s linear infinite}
-.shop-track.is-rolling .shop-shot{flex:0 0 min(28rem,78vw)}
-.shop-viewport:hover .shop-track.is-rolling,.shop-viewport:focus-within .shop-track.is-rolling{animation-play-state:paused}
-@media(prefers-reduced-motion:reduce){
-  .shop-track,.shop-track.is-rolling{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;width:auto;padding-inline:var(--gutter);animation:none!important;transform:none}
-  .shop-track.is-rolling .shop-shot{flex:none;width:auto}
-}
-@media(max-width:640px){.shop-track{grid-template-columns:1fr}.shop-track.is-rolling .shop-shot{flex-basis:min(22rem,86vw)}}
+.shop-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:clamp(28px,4vw,48px)}
+.shop-head .quiet{max-width:52ch}
+.shop-controls{display:flex;gap:10px}
+.shop-viewport{overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:thin;cursor:grab;-webkit-overflow-scrolling:touch}
+.shop-viewport.is-dragging{cursor:grabbing;scroll-snap-type:none}
+.shop-viewport:focus-visible{outline:3px solid var(--white);outline-offset:-3px}
+.shop-track{display:flex;gap:16px;width:max-content;padding-inline:var(--gutter);padding-bottom:12px}
+.shop-shot{margin:0;flex:0 0 min(28rem,78vw);scroll-snap-align:start}
+.shop-shot img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;pointer-events:none}
+@media(max-width:640px){.shop-shot{flex-basis:min(22rem,86vw)}.shop-head{align-items:stretch}.shop-controls .btn{flex:1}}
 .voices{padding:var(--space) 0;border-top:1px solid var(--line);overflow:hidden}
 .voices-head{margin-bottom:clamp(28px,4vw,48px)}
 .voices-head .quiet{max-width:52ch}

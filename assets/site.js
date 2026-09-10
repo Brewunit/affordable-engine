@@ -54,10 +54,49 @@ if (menuButton && navigation) {
   });
 }
 if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  document.querySelectorAll('.voices-track, .shop-track').forEach(track => {
+  document.querySelectorAll('.voices-track').forEach(track => {
     track.innerHTML += track.innerHTML;
     const kids = [...track.children];
     kids.slice(kids.length / 2).forEach(node => node.setAttribute('aria-hidden', 'true'));
     track.classList.add('is-rolling');
   });
+}
+const shopViewport = document.querySelector('.shop-viewport');
+const shopPrev = document.querySelector('[data-shop-prev]');
+const shopNext = document.querySelector('[data-shop-next]');
+if (shopViewport && shopPrev && shopNext) {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const step = () => Math.max(240, Math.round(shopViewport.clientWidth * 0.8));
+  const go = (dir) => shopViewport.scrollBy({ left: dir * step(), behavior: reduce ? 'auto' : 'smooth' });
+  shopPrev.hidden = false;
+  shopNext.hidden = false;
+  shopPrev.addEventListener('click', () => go(-1));
+  shopNext.addEventListener('click', () => go(1));
+  shopViewport.addEventListener('keydown', event => {
+    if (event.key === 'ArrowLeft') { event.preventDefault(); go(-1); }
+    if (event.key === 'ArrowRight') { event.preventDefault(); go(1); }
+  });
+  let drag = null;
+  shopViewport.addEventListener('pointerdown', event => {
+    if (event.pointerType === 'touch' || event.button) return;
+    drag = { id: event.pointerId, x: event.clientX, left: shopViewport.scrollLeft, moved: false };
+    shopViewport.classList.add('is-dragging');
+    shopViewport.setPointerCapture(event.pointerId);
+  });
+  shopViewport.addEventListener('pointermove', event => {
+    if (!drag || event.pointerId !== drag.id) return;
+    const dx = event.clientX - drag.x;
+    if (Math.abs(dx) > 4) drag.moved = true;
+    shopViewport.scrollLeft = drag.left - dx;
+  });
+  const endDrag = event => {
+    if (!drag || event.pointerId !== drag.id) return;
+    shopViewport.classList.remove('is-dragging');
+    drag = null;
+  };
+  shopViewport.addEventListener('pointerup', endDrag);
+  shopViewport.addEventListener('pointercancel', endDrag);
+  shopViewport.addEventListener('click', event => {
+    if (drag && drag.moved) event.preventDefault();
+  }, true);
 }
