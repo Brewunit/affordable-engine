@@ -35,6 +35,19 @@
 .family-photo{margin:0}
 .family-photo img{width:100%;height:auto;aspect-ratio:6/5;object-fit:cover;object-position:center 18%}
 .family-split .story-copy{padding-top:0}
+.shop-rail{padding:var(--space) 0 0;border-top:1px solid var(--line);overflow:hidden;background:var(--black)}
+.shop-viewport{overflow:hidden}
+.shop-track{display:grid;gap:16px;padding-inline:var(--gutter);grid-template-columns:repeat(2,minmax(0,1fr))}
+.shop-shot{margin:0}
+.shop-shot img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover}
+.shop-track.is-rolling{display:flex;align-items:stretch;gap:16px;width:max-content;padding-inline:0 16px;grid-template-columns:none;animation:voices-roll 70s linear infinite}
+.shop-track.is-rolling .shop-shot{flex:0 0 min(28rem,78vw)}
+.shop-viewport:hover .shop-track.is-rolling,.shop-viewport:focus-within .shop-track.is-rolling{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){
+  .shop-track,.shop-track.is-rolling{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;width:auto;padding-inline:var(--gutter);animation:none!important;transform:none}
+  .shop-track.is-rolling .shop-shot{flex:none;width:auto}
+}
+@media(max-width:640px){.shop-track{grid-template-columns:1fr}.shop-track.is-rolling .shop-shot{flex-basis:min(22rem,86vw)}}
 .voices{padding:var(--space) 0;border-top:1px solid var(--line);overflow:hidden}
 .voices-head{margin-bottom:clamp(28px,4vw,48px)}
 .voices-head .quiet{max-width:52ch}
