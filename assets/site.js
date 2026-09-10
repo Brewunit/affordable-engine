@@ -53,3 +53,11 @@ if (menuButton && navigation) {
     setOpen(false, compact.matches && wasFocused);
   });
 }
+const voicesTrack = document.querySelector('.voices-track');
+if (voicesTrack && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  voicesTrack.innerHTML += voicesTrack.innerHTML;
+  voicesTrack.querySelectorAll('.quote').forEach((quote, index, list) => {
+    if (index >= list.length / 2) quote.setAttribute('aria-hidden', 'true');
+  });
+  voicesTrack.classList.add('is-rolling');
+}
